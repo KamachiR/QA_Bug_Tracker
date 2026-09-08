@@ -1,69 +1,78 @@
 # QA Test Case & Bug Tracking Management System
 
-A small, college-level QA portfolio project built with Python and Django. It simulates a basic QA workflow where testers can manage projects, create test cases, execute tests, record results, and track bugs.
+A small Django-based QA portfolio project for managing test cases, test execution, and software bugs.
 
-## Why This Project
+## Why This Project?
 
-This project was designed as a realistic QA Intern portfolio project rather than a large enterprise application.
+This project demonstrates basic software testing and QA workflow concepts through a simple web application.
 
-The main focus is on practical software testing and QA concepts:
+It was developed as a college-level portfolio project to practice:
 
-- Test case creation and management
-- Test execution and result tracking
+- Test case management
+- Test execution
 - Bug reporting and tracking
-- Basic search and filtering
-- Simple testing metrics
-- User authentication
-- Django automated testing
+- Search and filtering
+- Basic dashboard reporting
+- Automated testing using Django
 
 ## Features
 
 ### Authentication
 
-- Login and logout
-- Protected QA pages using Django authentication
-- Custom login page
+- User login and logout
+- Protected application pages
+- Django authentication system
 
-### Projects
+### Project Management
 
-- Add projects
+- Create projects
 - View projects
 - Edit projects
 - Delete projects
 
-### Test Cases
+### Test Case Management
 
-- Create test cases and associate them with projects
-- Define test steps and expected results
-- Record actual results
-- Mark tests as **Not Tested**, **Pass**, or **Fail**
-- Execute a test case and record the execution timestamp
-- Search test cases by title
-- Filter test cases by status
+- Create test cases
+- Assign test cases to projects
+- Add test steps
+- Add expected results
 - Edit and delete test cases
+- Search test cases
+- Filter test cases by status
+
+### Test Execution
+
+- Execute test cases
+- Record actual results
+- Mark test cases as:
+  - Not Tested
+  - Pass
+  - Fail
+- Store execution date and time
 
 ### Bug Tracking
 
-- Create, edit, and delete bugs
-- Associate bugs with projects
+- Create bugs
+- Link bugs to projects
 - Optionally link bugs to test cases
-- Set severity: Low, Medium, High, Critical
-- Set priority: Low, Medium, High
-- Track status: Open, In Progress, Fixed, Closed
-- Search bugs by title
+- Set severity
+- Set priority
+- Track bug status
+- Edit and delete bugs
+- Search bugs
 - Filter bugs by status, severity, and priority
 
 ### Dashboard
 
-The dashboard provides simple testing metrics including:
+The dashboard provides a simple summary of:
 
 - Total projects
 - Total test cases
-- Passed tests
-- Failed tests
-- Not tested cases
-- Executed tests
-- Test coverage
+- Passed test cases
+- Failed test cases
+- Not tested test cases
+- Executed test cases
+- Test execution coverage
 - Total bugs
 - Open bugs
 - Fixed bugs
@@ -71,52 +80,40 @@ The dashboard provides simple testing metrics including:
 
 ### Django Admin
 
-The built-in Django Admin interface is customized with:
+The project includes a customized Django Admin interface for managing:
 
-- List displays
-- Search fields
-- Filters
-- Ordering
+- Projects
+- Test cases
+- Bugs
 
 ### Automated Tests
 
-The project includes Django automated tests covering important application functionality such as:
+The project includes Django automated tests covering important application functionality.
 
-- Authentication
-- Page access
-- Project CRUD operations
-- Test case CRUD operations
-- Bug CRUD operations
-- Test execution
-- Search functionality
-- Filtering
-- Dashboard behaviour
-
-The complete test suite contains **38 automated tests**, all of which pass successfully.
+The current test suite contains **38 automated tests**.
 
 ## Technology Stack
 
-- Python 3.13
-- Django 5.2
-- SQLite
-- HTML
-- CSS
-- Django Authentication
-- Django Admin
-- Django Test Framework
+- **Python 3.13**
+- **Django 5.2**
+- **SQLite**
+- **HTML**
+- **CSS**
+- **Django Authentication**
+- **Django Admin**
+- **Django Test Framework**
 
 ## Project Structure
 
 ```text
-QA_Bug_Tracker_Final/
-
+QA_Bug_Tracker/
+│
 ├── manage.py
-├── requirements.txt
 ├── README.md
+├── requirements.txt
 ├── .gitignore
 │
 ├── bugtracker/
-│   ├── __init__.py
 │   ├── settings.py
 │   ├── urls.py
 │   ├── asgi.py
@@ -126,9 +123,24 @@ QA_Bug_Tracker_Final/
     ├── migrations/
     ├── templates/
     │   └── testing/
-    ├── __init__.py
-    ├── admin.py
-    ├── apps.py
+    │       ├── home.html
+    │       ├── login.html
+    │       ├── projects.html
+    │       ├── test_cases.html
+    │       ├── bugs.html
+    │       ├── add_project.html
+    │       ├── edit_project.html
+    │       ├── delete_project.html
+    │       ├── add_test_case.html
+    │       ├── edit_test_case.html
+    │       ├── delete_test_case.html
+    │       ├── execute_test_case.html
+    │       ├── add_bug.html
+    │       ├── edit_bug.html
+    │       └── delete_bug.html
+    │
     ├── models.py
-    ├── tests.py
-    └── views.py
+    ├── views.py
+    ├── urls.py
+    ├── admin.py
+    └── tests.py
