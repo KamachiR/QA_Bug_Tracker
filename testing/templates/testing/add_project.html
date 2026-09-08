@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Project - QA Bug Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #212529;
+            color: white;
+            padding: 22px 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        header p {
+            margin: 6px 0 0;
+            color: #d6d6d6;
+        }
+
+        nav {
+            background-color: #343a40;
+            padding: 14px 40px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #61dafb;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 35px auto;
+        }
+
+        .form-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-card h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #212529;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0d6efd;
+        }
+
+        textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        .button-section {
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 11px 18px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #157347;
+        }
+
+        .cancel-button {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 10px 18px;
+            background-color: #e9ecef;
+            color: #333;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .cancel-button:hover {
+            background-color: #dee2e6;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 20px;
+            }
+
+            nav {
+                padding: 12px 20px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 15px 5px 0;
+            }
+
+            .container {
+                width: 90%;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>QA Bug Tracker</h1>
+        <p>Test Case & Bug Tracking Management System</p>
+    </header>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'projects' %}">Projects</a>
+        <a href="{% url 'test_cases' %}">Test Cases</a>
+        <a href="{% url 'bugs' %}">Bugs</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+
+    <div class="container">
+
+        <div class="form-card">
+
+            <h2>Add New Project</h2>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label for="name">
+                    Project Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter project name"
+                    required
+                >
+
+                <label for="description">
+                    Project Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Enter project description"
+                    required
+                ></textarea>
+
+                <div class="button-section">
+
+                    <button type="submit">
+                        + Add Project
+                    </button>
+
+                    <a
+                        href="{% url 'projects' %}"
+                        class="cancel-button"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <a href="{% url 'projects' %}" class="back">
+            ← Back to Projects
+        </a>
+
+    </div>
+
+</body>
+</html>

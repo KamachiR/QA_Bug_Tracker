@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QA Bug Tracker Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        .header {
+            background-color: #212529;
+            color: white;
+            padding: 25px 40px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            color: #d6d6d6;
+        }
+
+        .container {
+            padding: 30px 40px;
+        }
+
+        .section-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+        }
+
+        .card p {
+            margin: 5px 0 10px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .card h2 {
+            font-size: 32px;
+            margin: 0;
+            color: #007bff;
+        }
+
+        .navigation {
+            margin-top: 35px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .navigation a {
+            padding: 12px 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .navigation a:hover {
+            background-color: #0056b3;
+        }
+
+        .logout {
+            background-color: #dc3545 !important;
+        }
+
+        .logout:hover {
+            background-color: #b02a37 !important;
+        }
+
+        @media (max-width: 800px) {
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 550px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>QA Test Case & Bug Tracking System</h1>
+        <p>Quality Assurance Management Dashboard</p>
+    </div>
+
+    <div class="container">
+
+        <h2 class="section-title">Dashboard Overview</h2>
+
+        <div class="dashboard">
+
+            <a href="{% url 'projects' %}" class="card">
+                <p>Total Projects</p>
+                <h2>{{ total_projects }}</h2>
+            </a>
+
+            <a href="{% url 'test_cases' %}" class="card">
+                <p>Total Test Cases</p>
+                <h2>{{ total_test_cases }}</h2>
+            </a>
+
+            <a href="{% url 'test_cases' %}?status=Pass" class="card">
+                <p>Passed Tests</p>
+                <h2>{{ passed_tests }}</h2>
+            </a>
+
+            <a href="{% url 'test_cases' %}?status=Fail" class="card">
+                <p>Failed Tests</p>
+                <h2>{{ failed_tests }}</h2>
+            </a>
+
+            <a href="{% url 'test_cases' %}?status=Not%20Tested" class="card">
+                <p>Not Tested</p>
+                <h2>{{ not_tested }}</h2>
+            </a>
+
+            <a href="{% url 'test_cases' %}" class="card">
+                <p>Executed Tests</p>
+                <h2>{{ executed_tests }}</h2>
+            </a>
+
+            <div class="card">
+                <p>Test Coverage</p>
+                <h2>{{ test_coverage }}%</h2>
+            </div>
+
+            <a href="{% url 'bugs' %}" class="card">
+                <p>Total Bugs</p>
+                <h2>{{ total_bugs }}</h2>
+            </a>
+
+            <a href="{% url 'bugs' %}?status=Open" class="card">
+                <p>Open Bugs</p>
+                <h2>{{ open_bugs }}</h2>
+            </a>
+
+            <a href="{% url 'bugs' %}?status=Fixed" class="card">
+                <p>Fixed Bugs</p>
+                <h2>{{ fixed_bugs }}</h2>
+            </a>
+
+            <a href="{% url 'bugs' %}?severity=Critical" class="card">
+                <p>Critical Bugs</p>
+                <h2>{{ critical_bugs }}</h2>
+            </a>
+
+        </div>
+
+        <h2 class="section-title">Quick Navigation</h2>
+
+        <div class="navigation">
+
+            <a href="{% url 'projects' %}">
+                Projects
+            </a>
+
+            <a href="{% url 'test_cases' %}">
+                Test Cases
+            </a>
+
+            <a href="{% url 'bugs' %}">
+                Bugs
+            </a>
+
+            <a href="{% url 'logout' %}" class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

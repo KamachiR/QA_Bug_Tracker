@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Bug | QA Bug Tracker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .topbar {
+            background: #111827;
+            color: white;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            background: #dc2626;
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .warning-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #fee2e2;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 10px;
+            font-size: 27px;
+            color: #111827;
+        }
+
+        .warning-text {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .bug-details {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .detail {
+            margin-bottom: 14px;
+        }
+
+        .detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .label {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-size: 15px;
+            color: #111827;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        button,
+        .cancel-btn {
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        .cancel-btn {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .cancel-btn:hover {
+            background: #d1d5db;
+        }
+
+        @media (max-width: 600px) {
+            .topbar {
+                padding: 15px 20px;
+            }
+
+            .container {
+                margin: 30px auto;
+                padding: 15px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            button,
+            .cancel-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topbar">
+        <h2>QA Bug Tracker</h2>
+        <a href="{% url 'logout' %}" class="logout">Logout</a>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="warning-icon">⚠</div>
+
+            <h1>Delete Bug?</h1>
+
+            <p class="warning-text">
+                Are you sure you want to permanently delete this bug?
+                This action cannot be undone.
+            </p>
+
+            <div class="bug-details">
+
+                <div class="detail">
+                    <div class="label">Bug Title</div>
+                    <div class="value">{{ bug.title }}</div>
+                </div>
+
+                <div class="detail">
+                    <div class="label">Severity</div>
+                    <div class="value">{{ bug.severity }}</div>
+                </div>
+
+                <div class="detail">
+                    <div class="label">Priority</div>
+                    <div class="value">{{ bug.priority }}</div>
+                </div>
+
+                <div class="detail">
+                    <div class="label">Status</div>
+                    <div class="value">{{ bug.status }}</div>
+                </div>
+
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="actions">
+
+                    <a href="{% url 'bugs' %}" class="cancel-btn">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="delete-btn">
+                        Delete Bug
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
