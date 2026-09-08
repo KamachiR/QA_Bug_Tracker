@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Bug - QA Bug Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #212529;
+            color: white;
+            padding: 22px 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        header p {
+            margin: 6px 0 0;
+            color: #d6d6d6;
+        }
+
+        nav {
+            background-color: #343a40;
+            padding: 14px 40px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #61dafb;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 35px auto;
+        }
+
+        .form-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-card h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #212529;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #0d6efd;
+        }
+
+        textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        .help-text {
+            color: #777;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .button-section {
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 11px 18px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0b5ed7;
+        }
+
+        .cancel-button {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 10px 18px;
+            background-color: #e9ecef;
+            color: #333;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .cancel-button:hover {
+            background-color: #dee2e6;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 20px;
+            }
+
+            nav {
+                padding: 12px 20px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 15px 5px 0;
+            }
+
+            .container {
+                width: 90%;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>QA Bug Tracker</h1>
+        <p>Test Case & Bug Tracking Management System</p>
+    </header>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'projects' %}">Projects</a>
+        <a href="{% url 'test_cases' %}">Test Cases</a>
+        <a href="{% url 'bugs' %}">Bugs</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+
+    <div class="container">
+
+        <div class="form-card">
+
+            <h2>Edit Bug</h2>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label for="project">
+                    Project
+                </label>
+
+                <select id="project" name="project" required>
+
+                    {% for project in projects %}
+
+                        <option
+                            value="{{ project.id }}"
+                            {% if project.id == bug.project.id %}selected{% endif %}
+                        >
+                            {{ project.name }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <label for="test_case">
+                    Related Test Case
+                </label>
+
+                <select id="test_case" name="test_case">
+
+                    <option value="">
+                        None
+                    </option>
+
+                    {% for test_case in test_cases %}
+
+                        <option
+                            value="{{ test_case.id }}"
+                            {% if bug.test_case and bug.test_case.id == test_case.id %}selected{% endif %}
+                        >
+                            {{ test_case.title }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <p class="help-text">
+                    Select the test case related to this bug, if applicable.
+                </p>
+
+                <label for="title">
+                    Bug Title
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value="{{ bug.title }}"
+                    required
+                >
+
+                <label for="description">
+                    Bug Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    required
+                >{{ bug.description }}</textarea>
+
+                <label for="severity">
+                    Severity
+                </label>
+
+                <select id="severity" name="severity" required>
+
+                    <option value="Low"
+                        {% if bug.severity == "Low" %}selected{% endif %}>
+                        Low
+                    </option>
+
+                    <option value="Medium"
+                        {% if bug.severity == "Medium" %}selected{% endif %}>
+                        Medium
+                    </option>
+
+                    <option value="High"
+                        {% if bug.severity == "High" %}selected{% endif %}>
+                        High
+                    </option>
+
+                    <option value="Critical"
+                        {% if bug.severity == "Critical" %}selected{% endif %}>
+                        Critical
+                    </option>
+
+                </select>
+
+                <label for="priority">
+                    Priority
+                </label>
+
+                <select id="priority" name="priority" required>
+
+                    <option value="Low"
+                        {% if bug.priority == "Low" %}selected{% endif %}>
+                        Low
+                    </option>
+
+                    <option value="Medium"
+                        {% if bug.priority == "Medium" %}selected{% endif %}>
+                        Medium
+                    </option>
+
+                    <option value="High"
+                        {% if bug.priority == "High" %}selected{% endif %}>
+                        High
+                    </option>
+
+                </select>
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select id="status" name="status" required>
+
+                    <option value="Open"
+                        {% if bug.status == "Open" %}selected{% endif %}>
+                        Open
+                    </option>
+
+                    <option value="In Progress"
+                        {% if bug.status == "In Progress" %}selected{% endif %}>
+                        In Progress
+                    </option>
+
+                    <option value="Fixed"
+                        {% if bug.status == "Fixed" %}selected{% endif %}>
+                        Fixed
+                    </option>
+
+                    <option value="Closed"
+                        {% if bug.status == "Closed" %}selected{% endif %}>
+                        Closed
+                    </option>
+
+                </select>
+
+                <div class="button-section">
+
+                    <button type="submit">
+                        Save Changes
+                    </button>
+
+                    <a
+                        href="{% url 'bugs' %}"
+                        class="cancel-button"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <a href="{% url 'bugs' %}" class="back">
+            ← Back to Bugs
+        </a>
+
+    </div>
+
+</body>
+</html>
